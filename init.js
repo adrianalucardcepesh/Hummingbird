@@ -124,6 +124,46 @@ bot.action('next', async (ctx) => {
         ctx.reply('Анкеты не найдены или возникла проблема с их загрузкой. Попробуйте снова.');
     }
 });
+
+bot.action('like', async (ctx) => {
+    const { profiles, currentProfileIndex } = ctx.session;
+
+    if (profiles && Array.isArray(profiles) && currentProfileIndex < profiles.length) {
+        const profile = profiles[currentProfileIndex];
+
+        // Проверяем, есть ли у профиля имя пользователя (username)
+        if (profile.username) {
+            const telegramUrl = `https://t.me/${profile.username}`;
+            ctx.reply(`Приятного общения 😼 ${telegramUrl}`);
+
+        } else if (profile.telegram_id) {
+            const firstName = `${profile.name} ${profile.surname}`;
+
+            const formattedName = `[${firstName}](tg://user?id=${profile.telegram_id})`;
+            const textPredict = "Приятного общения 😼"; // Замените эту строку на ваш текст
+            const messageText = `${formattedName}, ${textPredict}`;
+
+            ctx.replyWithMarkdownV2(messageText);
+
+        } else {
+            // Если нет ни имени пользователя, ни telegram_id
+            ctx.reply('Информация о контакте пользователя отсутствует.');
+        }
+
+        let text = `👻`;
+
+        ctx.reply(text, {
+            reply_markup: {
+                keyboard: [
+                    [{text: 'Вернуться в главное меню'}],
+                ],
+                resize_keyboard: true,
+                one_time_keyboard: true,
+            },
+        });
+    }
+});
+
 bot.action('complain', (ctx) => {
     ctx.session.complainStep = 'waiting_for_complaint';
     ctx.reply('Пожалуйста, напишите текст вашей жалобы:');

@@ -21,6 +21,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 async function sortProfilesByDistance(currentUserCity, profiles) {
     const cities = await loadCities();
 
+
     // Найдите координаты города текущего пользователя с проверкой на undefined
     const currentUserObj = cities.find(city => city.name === currentUserCity);
 
