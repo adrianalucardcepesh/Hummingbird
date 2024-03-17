@@ -46,7 +46,7 @@ const sendProfile = async (ctx) => {
         const keyboard = [
             [{ text: 'Пообщаться ‍🔥', callback_data: 'like' }],
             [{ text: 'Следующая анкета 🔎', callback_data: 'next' }],
-            [{ text: 'Приватный чат 🎉', callback_data: 'piar'}],
+            [{ text: 'Приватный чат 🎉', callback_data: 'private'}],
             [{ text: 'Пожаловаться на анкету 👮🏼‍', callback_data: 'complain'}],
         ];
 
