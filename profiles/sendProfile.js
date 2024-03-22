@@ -6,7 +6,7 @@ const sendProfile = async (ctx) => {
     if (currentProfileIndex < profiles.length) {
         const profile = profiles[currentProfileIndex];
 
-        let text = "Анкета пользователя 🐱\n\n";
+        let text = "🥇\n\n";
 
 // Добавляем клавиатуру после отправки медиафайла
         ctx.reply(text, {
@@ -54,7 +54,7 @@ const sendProfile = async (ctx) => {
 
 
         // Отправьте клавиатуру и сообщение с анкетой
-        await ctx.telegram.sendMessage(ctx.chat.id, 'Как вам анкета? ', {
+        await ctx.telegram.sendMessage(ctx.chat.id, 'Как вам анкета? 📄', {
             reply_markup: {
                 inline_keyboard: keyboard,
             },

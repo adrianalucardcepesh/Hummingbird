@@ -18,7 +18,8 @@ async function dateUsers(ctx) {
         console.log(userInfoResults);
         // Проверяем, была ли найдена информация о пользователе
         if (!userInfoResults) {
-            console.log('Текущий пользователь не найден');
+            console.log('Сначала заполните свою анкету 📝 и вы сможете просматривать анкеты наших пользователей 👓');
+            ctx.reply('Сначала заполните свою анкету 📝 и вы сможете просматривать анкеты наших пользователей 🔥');
             return;
         }
 
@@ -31,23 +32,35 @@ async function dateUsers(ctx) {
         // Инициализируем запрос для поиска пользователей
         let usersQuery = 'SELECT * FROM users WHERE telegram_id != ?';
         const queryParams = [parseInt(currentUserTelegramId)];
-        console.log(queryParams)
-
-// Выполнение SQL запроса
-
-        if (currentUser.gendersearch === 'любой') {
-            // Не добавляем дополнительные условия для фильтрации
-        } else if (currentUser.gendersearch === 'парень') {
-            usersQuery += " AND gender = 'парень'";
-        } else if (currentUser.gendersearch === 'девушка') {
-            usersQuery += " AND gender = 'девушка'";
-        }
-
-
-// Выводим итоговый запрос и используемые параметры для проверки
-        console.log(usersQuery);
         console.log(queryParams);
 
+// Флаг, указывающий на добавление специфических условий
+        let specificConditionAdded = false;
+
+// Проверяем предпочтение гендера пользователя
+        if (currentUser.gendersearch === 'парень' && currentUser.gender === 'парень') {
+            usersQuery += " AND gender = 'парень'";
+            specificConditionAdded = true;
+            console.log("Поиск анкет парней для парня.");
+        } else if (currentUser.gendersearch === 'девушка' && currentUser.gender === 'девушка') {
+            usersQuery += " AND gender = 'девушка'";
+            specificConditionAdded = true;
+            console.log("Поиск анкет девушек для девушки.");
+        } else if (currentUser.gendersearch === 'парень' && currentUser.gender === 'девушка') {
+            usersQuery += " AND gender = 'девушка'";
+            specificConditionAdded = true;
+            console.log("Поиск анкет парней для девушки.");
+        } else if (currentUser.gendersearch === 'девушка' && currentUser.gender === 'парень') {
+            usersQuery += " AND gender = 'парень'";
+            specificConditionAdded = true;
+            console.log("Поиск анкет девушек для парня.");
+        }
+// Если пользователь выбрал "любой" гендер и не было добавлено других специфических условий
+        if (!specificConditionAdded && currentUser.gendersearch === 'любой') {
+            // Проверяем, нужно ли добавлять условие случайной сортировки
+            usersQuery += ' ORDER BY RAND()';
+            console.log("Поиск анкет любого гендера. Применена случайная сортировка.");
+        }
 // Выполняем запрос к базе данных
         const profiles = await conn.query(usersQuery, queryParams);
         console.log(profiles)

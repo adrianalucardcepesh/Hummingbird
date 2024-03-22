@@ -22,6 +22,10 @@ const showProfile = async (ctx) => {
             // Create your profile here
             return;
         }
+        if (user.showProfile === 0) {
+            ctx.reply('❌ Ваша анкета не показывается.');
+            return;
+        }
 
         const {name, surname, city, age, info, search, goal} = user;
 

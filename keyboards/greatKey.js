@@ -31,9 +31,10 @@ const startCommand = async (ctx) => {
                 Markup.button.callback('Удалить свою анкету 🗑', 'delete'),
             ],
             [
-                Markup.button.callback('Узнать о пиар компании 📣', 'piar')
+                Markup.button.callback('Смотреть свою анкету 📄', 'anketa'),
             ],
                 [
+                Markup.button.callback('Узнать о пиар компаних 📣', 'piar'),
                 Markup.button.callback('Приватный чат 🎉', 'private')
                 ]
 
