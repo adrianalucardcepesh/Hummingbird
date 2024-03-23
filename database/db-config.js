@@ -1,17 +1,11 @@
-// const dbConfig = {
-//     host: 'as0qu1.stackhero-network.com',
-//     database: 'date',
-//     user: 'root',
-//     password: 'aDL0jImSFQUbUMtOXVIoUksNtpaC3KyL',
-// };
 
 const dbConfig = {
     host: '127.0.0.1',
-    database: 'beautybase',
-    user: 'root',
-    password: '',
-
+    database: 'smtp_admin_hum',
+    user: 'smtp_admin_hum',
+    password: ')ffOX$oTY9a*}p]s',
 };
 
-
-module.exports = dbConfig;
+module.exports = {
+    dbConfig
+};
